@@ -11,7 +11,7 @@ Currently this plugin contains:
 
 Usage:
 
-<$action-storecount $filter=<<someFilter>> $tiddler=someTiddler $field=someField/>
+`<$action-storecount $filter=<<someFilter>> $tiddler=someTiddler $field=someField/>`
 
 Since it is a modification of the action-setfield widget and I haven't modifed this part, you may be able to store the output at the given index of a data tiddler, but I haven't tested that yet.
 
@@ -23,8 +23,8 @@ THIS WIDGET SHOULDN'T BE USED FOR THE MOMENT. It constantly refreshes and will s
 
 Usage:
 
-<$sumfield filter=<<someFilter>> sumfield=sumField tiddler=storeTiddler storefield=storeField defaultvalue=defaultValue/>
+`<$sumfield filter=<<someFilter>> sumfield=sumField tiddler=storeTiddler storefield=storeField defaultvalue=defaultValue/>`
 
-It will take each tiddler listed when using <<someFilter>> and take the value in sumField from each of the tiddlers and sum them, the result will be placed in the storeField of the tiddler storeTiddler. If there aren't any numbers to sum than it will display defaultValue.
+It will take each tiddler listed when using `<<someFilter>>` and take the value in sumField from each of the tiddlers and sum them, the result will be placed in the storeField of the tiddler storeTiddler. If there aren't any numbers to sum than it will display defaultValue.
 
 tiddler defaults to <<currentTiddler>> and defaultValue defaults to 0 if they aren't given inputs.
