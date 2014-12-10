@@ -50,8 +50,8 @@ SumFieldWidget.prototype.execute = function() {
 	this.list = this.getTiddlerList();
 	// Get current value
 	var storetiddler = this.wiki.getTiddler(this.actionTiddler);
-	var currentState = storetiddler.getFieldString(this.storefield);
-	// Check for an empty list
+	var currentState = storetiddler.getFieldString(this.storeField);
+	// Check for an empty list, if the list isn't empty compute the sum
 	if(this.list.length === 0) {
 	  output = this.defaultValue; //return the default value when there is nothing to sum, if it isn't set than return 0
 	} else {
@@ -59,13 +59,39 @@ SumFieldWidget.prototype.execute = function() {
 	  for (var i = 0; i < this.list.length; i++) {
 	    var tidtitle = this.list[i];
 	    var tiddler = this.wiki.getTiddler(tidtitle);
-	    var output = output + Number(tiddler.getFieldString(this.sumField));
+	    output = output + Number(tiddler.getFieldString(this.sumField));
 	  }
 	}
-	if (currentState != String(output)) {
-	  this.output = String(output);
+        // If the sum has changed then write to the field
+	this.output = String(output);
+	if (this.output === String(storetiddler.getFieldString(this.storeField))) {
+	} else {
 	  this.wiki.setText(this.actionTiddler,this.storeField,this.storeIndex,this.output);
 	}
+};
+
+/*
+Selectively refreshes the widget if needed. Returns true if the widget or any of its children needed re-rendering
+*/
+SumFieldWidget.prototype.refresh = function(changedTiddlers) {
+	var changedAttributes = this.computeAttributes();
+	var output = 0;
+	this.list = this.getTiddlerList();
+	for (var i = 0; i < this.list.length; i++) {
+	  var tidtitle = this.list[i];
+	  var tiddler = this.wiki.getTiddler(tidtitle);
+	  output = output + Number(tiddler.getFieldString(this.sumField));
+	}
+	var storetiddler = this.wiki.getTiddler(this.actionTiddler);
+	// Completely rerender if any of our attributes have changed
+	if (String(output) != String(storetiddler.getFieldString(this.storeField))) {
+		this.refreshSelf();
+		return true;
+	} else if(this.stateTitle && changedTiddlers[this.stateTitle]) {
+		this.readState();
+		return true;
+	}
+	return false;
 };
 
 SumFieldWidget.prototype.getTiddlerList = function() {
