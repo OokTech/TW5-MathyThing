@@ -59,7 +59,10 @@ ProdFieldWidget.prototype.execute = function() {
 	  for (var i = 0; i < this.list.length; i++) {
 	    var tidtitle = this.list[i];
 	    var tiddler = this.wiki.getTiddler(tidtitle);
-	    output = output * Number(tiddler.getFieldString(this.prodField));
+	    // check to make sure that the field contains a number before using it in the product
+	    if ( !isNaN(parseFloat(tiddler.getFieldString(this.prodField))) && isFinite(tiddler.getFieldString(this.prodField)) ) {
+	    	output = output * Number(tiddler.getFieldString(this.prodField));
+	    }
 	  }
 	}
         // If the product has changed then write to the field
@@ -75,12 +78,14 @@ Selectively refreshes the widget if needed. Returns true if the widget or any of
 */
 ProdFieldWidget.prototype.refresh = function(changedTiddlers) {
 	var changedAttributes = this.computeAttributes();
-	var output = 0;
+	var output = 1;
 	this.list = this.getTiddlerList();
 	for (var i = 0; i < this.list.length; i++) {
 	  var tidtitle = this.list[i];
 	  var tiddler = this.wiki.getTiddler(tidtitle);
-	  output = output + Number(tiddler.getFieldString(this.prodField));
+	  if ( !isNaN(parseFloat(tiddler.getFieldString(this.prodField))) && isFinite(tiddler.getFieldString(this.prodField)) ) {
+	  	output = output * Number(tiddler.getFieldString(this.prodField));
+	  }
 	}
 	var storetiddler = this.wiki.getTiddler(this.actionTiddler);
 	// Completely rerender if any of our attributes have changed

@@ -59,7 +59,9 @@ SumFieldWidget.prototype.execute = function() {
 	  for (var i = 0; i < this.list.length; i++) {
 	    var tidtitle = this.list[i];
 	    var tiddler = this.wiki.getTiddler(tidtitle);
-	    output = output + Number(tiddler.getFieldString(this.sumField));
+	    if ( !isNaN(parseFloat(tiddler.getFieldString(this.prodField))) && isFinite(tiddler.getFieldString(this.prodField)) ) {
+	    	output = output + Number(tiddler.getFieldString(this.sumField));
+		}
 	  }
 	}
         // If the sum has changed then write to the field
@@ -80,7 +82,9 @@ SumFieldWidget.prototype.refresh = function(changedTiddlers) {
 	for (var i = 0; i < this.list.length; i++) {
 	  var tidtitle = this.list[i];
 	  var tiddler = this.wiki.getTiddler(tidtitle);
-	  output = output + Number(tiddler.getFieldString(this.sumField));
+	  if ( !isNaN(parseFloat(tiddler.getFieldString(this.prodField))) && isFinite(tiddler.getFieldString(this.prodField)) ) {
+	  	output = output + Number(tiddler.getFieldString(this.sumField));
+	  }
 	}
 	var storetiddler = this.wiki.getTiddler(this.actionTiddler);
 	// Completely rerender if any of our attributes have changed
