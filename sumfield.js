@@ -59,7 +59,7 @@ SumFieldWidget.prototype.execute = function() {
 	  for (var i = 0; i < this.list.length; i++) {
 	    var tidtitle = this.list[i];
 	    var tiddler = this.wiki.getTiddler(tidtitle);
-	    if ( !isNaN(parseFloat(tiddler.getFieldString(this.prodField))) && isFinite(tiddler.getFieldString(this.prodField)) ) {
+	    if ( !isNaN(parseFloat(tiddler.getFieldString(this.sumField))) && isFinite(tiddler.getFieldString(this.sumField)) ) {
 	    	output = output + Number(tiddler.getFieldString(this.sumField));
 		}
 	  }
@@ -82,7 +82,7 @@ SumFieldWidget.prototype.refresh = function(changedTiddlers) {
 	for (var i = 0; i < this.list.length; i++) {
 	  var tidtitle = this.list[i];
 	  var tiddler = this.wiki.getTiddler(tidtitle);
-	  if ( !isNaN(parseFloat(tiddler.getFieldString(this.prodField))) && isFinite(tiddler.getFieldString(this.prodField)) ) {
+	  if ( !isNaN(parseFloat(tiddler.getFieldString(this.sumField))) && isFinite(tiddler.getFieldString(this.sumField)) ) {
 	  	output = output + Number(tiddler.getFieldString(this.sumField));
 	  }
 	}
