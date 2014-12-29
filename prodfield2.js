@@ -52,8 +52,8 @@ ProdFieldWidget2.prototype.execute = function() {
 	if(this.list.length === 0) {
 		output = this.defaultValue; //return the default value when there is nothing to product, if it isn't set than return 0
 	} else {
-		var output = 1;
 		for (var i = 0; i < this.list.length; i++) {
+			var output = 1;
 			var tidtitle = this.list[i];
 			var tiddler = this.wiki.getTiddler(tidtitle);
 			// check to make sure that the field contains a number before using it in the product
@@ -75,9 +75,9 @@ Selectively refreshes the widget if needed. Returns true if the widget or any of
 */
 ProdFieldWidget2.prototype.refresh = function(changedTiddlers) {
 	var changedAttributes = this.computeAttributes();
-	var output = 1;
 	this.list = this.getTiddlerList();
 	for (var i = 0; i < this.list.length; i++) {
+		var output = 1;
 		var tidtitle = this.list[i];
 		var tiddler = this.wiki.getTiddler(tidtitle);
 		if ( !isNaN(parseFloat(tiddler.getFieldString(this.prodField))) && isFinite(tiddler.getFieldString(this.prodField)) && !isNaN(parseFloat(tiddler.getFieldString(this.prodField2))) && isFinite(tiddler.getFieldString(this.prodField2)) ) {
