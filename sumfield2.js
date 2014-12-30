@@ -41,6 +41,7 @@ Compute the internal state of the widget
 */
 SumFieldWidget2.prototype.execute = function() {
 	// Get attributes
+	this.actionTiddler = this.getAttribute("tiddler",0);
 	this.sumField = this.getAttribute("sumfield");
 	this.sumField2 = this.getAttribute("sumfield2");
 	this.storeField = this.getAttribute("storefield");
@@ -62,9 +63,17 @@ SumFieldWidget2.prototype.execute = function() {
 			}
 			 // If the sum has changed then write to the field
 			this.output = String(output);
-			if (this.output === String(tiddler.getFieldString(this.storeField))) {
+			if ( this.actionTiddler === 0 ) {
+				if (this.output === String(tiddler.getFieldString(this.storeField))) {
+				} else {
+						this.wiki.setText(tidtitle,this.storeField,this.storeIndex,this.output);
+				} 
 			} else {
-				this.wiki.setText(tidtitle,this.storeField,this.storeIndex,this.output);
+				var tiddler2 = this.wiki.getTiddler(this.actionTiddler);
+				if (this.output === String(tiddler2.getFieldString(this.storeField))) {
+				} else {
+					this.wiki.setText(this.actionTiddler,this.storeField,this.storeIndex,this.output);
+				}
 			}
 		}
 	}
@@ -84,12 +93,23 @@ SumFieldWidget2.prototype.refresh = function(changedTiddlers) {
 	  		output = Number(tiddler.getFieldString(this.sumField)) + Number(tiddler.getFieldString(this.sumField2));
 		}
 		// Completely rerender if any of our attributes have changed
-		if (String(output) != String(tiddler.getFieldString(this.storeField))) {
-			this.refreshSelf();
-			return true;
-		} else if(this.stateTitle && changedTiddlers[this.stateTitle]) {
-			this.readState();
-			return true;
+		if ( this.actionTiddler === 0 ) {
+			if (String(output) != String(tiddler.getFieldString(this.storeField))) {
+				this.refreshSelf();
+				return true;
+			} else if(this.stateTitle && changedTiddlers[this.stateTitle]) {
+				this.readState();
+				return true;
+			}
+		} else {
+			var tiddler2 = this.wiki.getTiddler(this.actionTiddler);
+			if (String(output) != String(tiddler2.getFieldString(this.storeField))) {
+				this.refreshSelf();
+				return true;
+			} else if(this.stateTitle && changedTiddlers[this.stateTitle]) {
+				this.readState();
+				return true;
+			}
 		}
 	}
 	return false;
