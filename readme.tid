@@ -26,7 +26,22 @@ Usage:
 
 It will take each tiddler listed when using `<<someFilter>>` and take the value in sumField from each of the tiddlers and sum them, the result will be placed in the storeField of the tiddler storeTiddler. If there aren't any numbers to sum than it will display defaultValue.
 
-tiddler defaults to <<currentTiddler>> and defaultValue defaults to 0 if they aren't given inputs.
+tiddler defaults to `<<currentTiddler>>` and defaultValue defaults to 0 if they aren't given inputs.
+
+If one of the fields contains a non-numeric value than it is ignored. This includes empty fields.
+
+---
+
+
+''The sumfield2 widget'' - a widget that was made by modifying the list widget. It takes a filter and a given field and sums together two fields in the filtered tiddlers and stores the value in a third field.
+
+Usage:
+
+`<$sumfield2 filter=<<someFilter>> sumfield=sumField sumfield2=sumField2 storefield=storeField defaultvalue=defaultValue/>`
+
+It will take each tiddler listed when using `<<someFilter>>` and take the value in sumField to the value in sumField2 in each of the tiddlers and the result will be placed in the storeField of each tiddler. If there aren't any numbers to sum than it will display defaultValue.
+
+tiddler defaults to `<<currentTiddler>>` and defaultValue defaults to 0 if they aren't given inputs.
 
 If one of the fields contains a non-numeric value than it is ignored. This includes empty fields.
 
@@ -41,6 +56,21 @@ Usage:
 
 It will take each tiddler listed when using `<<someFilter>>` and take the value in prodField from each of the tiddlers and take their product, the result will be placed in the storeField of the tiddler storeTiddler. If there aren't any numbers to sum than it will display defaultValue. 
 
-tiddler defaults to <<currentTiddler>> and defaultValue defaults to 0 if they aren't given inputs.
+tiddler defaults to `<<currentTiddler>>` and defaultValue defaults to 0 if they aren't given inputs.
+
+If one of the fields contains a non-numeric value than it is ignored. This includes empty fields.
+
+---
+
+
+''The prodfield2 widget'' - a widget that was made by modifying the list widget. It takes a filter and a given two fields takes the product of those fields in the filtered tiddlers, then stores the result in a third field in each tiddler.
+
+Usage:
+
+`<$prodfield2 filter=<<someFilter>> prodfield=prodField prodfield2=prodField2 storefield=storeField defaultvalue=defaultValue/>`
+
+It will take each tiddler listed when using `<<someFilter>>` and multiply the values in prodField and prodField2 in each of the tiddlers and the result will be placed in the storeField of each tiddler. If there aren't any numbers to sum than it will display defaultValue. 
+
+tiddler defaults to `<<currentTiddler>>` and defaultValue defaults to 0 if they aren't given inputs.
 
 If one of the fields contains a non-numeric value than it is ignored. This includes empty fields.
