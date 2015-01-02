@@ -7,11 +7,21 @@ Currently this plugin contains:
 
 ---
 
-''The action-storecount widget'' - an action widget with similar functionality as the count widget. It takes a filter and will count the number of matching tiddlers and store the output in the designated field. It was created by combining the action-setfield and count widgets.
+''The action-storecount widget'' - an action widget with similar functionality to the count widget. It takes a filter and will count the number of matching tiddlers and, on a button press or other initiating event, store the output in the designated field. It was created by combining the action-setfield and count widgets.
 
 Usage:
 
 `<$action-storecount $filter=<<someFilter>> $tiddler=someTiddler $field=someField/>`
+
+Since it is a modification of the action-setfield widget and I haven't modifed this part, you may be able to store the output at the given index of a data tiddler, but I haven't tested that yet.
+
+---
+
+''The storecount widget'' - a widget with similar functionality to the count widget. It takes a filter and will count the number of matching tiddlers and store the output in the designated field. It was created by modifying the sumfield widget below.
+
+Usage:
+
+`<$storecount $filter=<<someFilter>> $tiddler=someTiddler $field=someField/>`
 
 Since it is a modification of the action-setfield widget and I haven't modifed this part, you may be able to store the output at the given index of a data tiddler, but I haven't tested that yet.
 
