@@ -2,7 +2,7 @@
 	"title": "$:/plugins/inmysocks/MathyThing",
 	"description": "Some basic math operations for TiddlyWiki",
 	"author": "inmysocks",
-	"version": "0.0.9",
+	"version": "0.0.11",
 	"core-version": ">=5.0.8",
 	"source": "https://github.com/inmysocks/TW5-MathyThing",
 	"plugin-type": "plugin"

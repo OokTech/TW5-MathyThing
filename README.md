@@ -5,6 +5,14 @@ a math plugin for TiddlyWiki5
 
 Currently this plugin contains:
 
+*The action-storecount widget
+*The storecount widget
+*The sumfield widget
+*The sumfield2 widget
+*The prodfield widget
+*The prodfield2 widget
+*The increment widget
+
 ---
 
 ''The action-storecount widget'' - an action widget with similar functionality to the count widget. It takes a filter and will count the number of matching tiddlers and, on a button press or other initiating event, store the output in the designated field. It was created by combining the action-setfield and count widgets.
@@ -84,3 +92,17 @@ It will take each tiddler listed when using `<<someFilter>>` and multiply the va
 tiddler defaults to `<<currentTiddler>>` and defaultValue defaults to 0 if they aren't given inputs.
 
 If one of the fields contains a non-numeric value than it is ignored. This includes empty fields.
+
+---
+
+''The increment widget'' - a widget that increments a value in a field by a given amount
+
+Note: Both the field and the increment value have to be numeric and exist. If you specifiy an empty field, or a field with a non-numeric value, than the widget won't do anything.
+
+Usage:
+
+`<$action-increment $tiddler=someTiddler $field=someField $increment=someIncrement/>`
+
+It will take the value of someField and replace it with the value someField+someIncrement
+
+There is no requirement that someIncrement be positive or an integer.
