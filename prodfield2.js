@@ -44,7 +44,7 @@ ProdFieldWidget2.prototype.execute = function() {
 	this.actionTiddler = this.getAttribute("tiddler",0);
 	this.prodField = this.getAttribute("prodfield");
 	this.prodField2 = this.getAttribute("prodfield2");
-	this.storeField = this.getAttribute("storefield");
+	this.storeField = this.getAttribute("storefield","store_field");
 	this.storeIndex = this.getAttribute("index");
 	this.defaultValue = this.getAttribute("defaultvalue",0);
 	// Compose the list elements

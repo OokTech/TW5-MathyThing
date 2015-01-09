@@ -104,7 +104,16 @@ Note: Both the field and the increment value have to be numeric and exist. If yo
 
 Usage:
 
-`<$action-increment $tiddler=someTiddler $field=someField $increment=someIncrement/>`
+`<$action-increment $tiddler=someTiddler $field=fieldToIncrement $increment=incrementValue $length=zeroPadLength $prefix=outputPrefix $intial=initialValue/>`
+
+*$tiddler defaults to `<<currentTiddler>>`
+*$field defaults to make_sure_you_give_a_field_parameter
+*$increment defaults to 1
+*$length has no default, if no length is given than the output will have no zero padding
+*$prefix has no default, if no prefix is given the output isn't given a prefix
+*$initial defaults to 0
+
+Note: the `$length` input specifies the minimum length, so if your `$length` is set to 1 and your stored value is 10 the `$length` input does nothing. The `$length` is also independent of the `$prefix`.
 
 It will take the value of someField and replace it with the value someField+someIncrement
 

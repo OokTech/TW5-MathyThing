@@ -36,15 +36,16 @@ Compute the internal state of the widget
 */
 MyCountWidget.prototype.execute = function() {
 	this.actionTiddler = this.getAttribute("$tiddler",this.getVariable("currentTiddler"));
-	this.actionField = this.getAttribute("$field");
+	this.actionField = this.getAttribute("$field","store_field");
 	this.actionIndex = this.getAttribute("$index");
 	this.filter = this.getAttribute("$filter");
+	this.defaultVal = this.getAttribute("$default",0);
 	
 	// Execute the filter
 	if(this.filter) {
 		this.currentCount = this.wiki.filterTiddlers(this.filter,this).length;
 	} else {
-		this.currentCount = undefined;
+		this.currentCount = this.defaultVal;
 	}
 	this.actionValue = this.currentCount.toString();
 };

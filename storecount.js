@@ -3,7 +3,11 @@ title: $:/plugins/inmysocks/MathyThing/storecount.js
 type: application/javascript
 module-type: widget
 
-Count widget
+storeCount widget
+
+<$storecount $tiddler=someTiddler $field=store_field $filter=<<someFilter>> $default=defaultValue/>
+
+You can also use a $storeindex to specify an index in a data tiddler instead of in a field
 
 \*/
 (function(){
@@ -36,23 +40,26 @@ Compute the internal state of the widget
 */
 MyCountWidget.prototype.execute = function() {
 	this.actionTiddler = this.getAttribute("$tiddler",this.getVariable("currentTiddler"));
-	this.actionField = this.getAttribute("$field");
+	this.actionField = this.getAttribute("$field","store_field");
 	this.actionIndex = this.getAttribute("$index");
 	this.filter = this.getAttribute("$filter");
-	
+	this.defaultVal = this.getAttribute("$default",0);
+
 	// Execute the filter
 	var tiddler = this.wiki.getTiddler(this.actionTiddler);
 	var oldvalue = tiddler.getFieldString(this.actionField);
 	if(this.filter) {
 		this.currentCount = this.wiki.filterTiddlers(this.filter,this).length;
 	} else {
-		this.currentCount = undefined;
+		this.currentCount = this.defaultVal;
 	}
-	this.actionValue = this.currentCount.toString();
-
-	if ( oldvalue === this.actionValue ) {
+	if ( this.currentCount === undefined ) {
 	} else {
-		this.wiki.setText(this.actionTiddler,this.actionField,this.actionIndex,this.actionValue);
+		this.actionValue = this.currentCount.toString();
+		if ( oldvalue === this.actionValue ) {
+		} else {
+			this.wiki.setText(this.actionTiddler,this.actionField,this.actionIndex,this.actionValue);
+		}
 	}
 };
 
@@ -61,7 +68,7 @@ Refresh the widget by ensuring our attributes are up to date
 */
 MyCountWidget.prototype.refresh = function(changedTiddlers) {
 	var changedAttributes = this.computeAttributes();
-	if(changedAttributes["$tiddler"] || changedAttributes["$field"] || changedAttributes["$index"] || changedAttributes["$lower"] || changedAttributes["$upper"] || changedAttributes["$step"]) {
+	if(changedAttributes["$tiddler"] || changedAttributes["$field"] || changedAttributes["$index"] || changedAttributes["$filter"] || changedAttributes["$default"]) {
 		this.refreshSelf();
 		return true;
 	}

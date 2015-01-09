@@ -44,7 +44,7 @@ SumFieldWidget2.prototype.execute = function() {
 	this.actionTiddler = this.getAttribute("tiddler",0);
 	this.sumField = this.getAttribute("sumfield");
 	this.sumField2 = this.getAttribute("sumfield2");
-	this.storeField = this.getAttribute("storefield");
+	this.storeField = this.getAttribute("storefield","store_field");
 	this.storeIndex = this.getAttribute("index");
 	this.defaultValue = this.getAttribute("defaultvalue",0);
 	// Compose the list elements
