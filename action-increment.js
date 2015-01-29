@@ -47,36 +47,36 @@ IncrementWidget.prototype.execute = function() {
 	var tiddler = this.wiki.getTiddler(this.actionTiddler);
 	var fieldString = tiddler.getFieldString(this.actionField);
 
-	//If there is no value in the field create the initial value, with a prefix and zero padding if needed
-	if ( fieldString ) {
-	} else if ( this.prefixValue ) {
-		if ( this.padLength ) {
+	//If there is no value in the field create the initial value, with a prefix and zero padding if needed.
+	if(fieldString) {
+	} else if(this.prefixValue) {
+		if(this.padLength) {
 			fieldString = this.prefixValue+$tw.utils.pad(this.initialValue,this.padLength);
 		} else {
 			fieldString = this.prefixValue+this.initialValue;
 		}
-	} else if ( this.padLength ) {
+	} else if(this.padLength) {
 			fieldString = $tw.utils.pad(this.initialValue,this.padLength);
 	} else {
 			fieldString = this.initialValue;
 	}
 	
-	//Get the current numeric value in the field by removing the prefix if one is given
-	if ( this.prefixValue ) {
+	//Get the current numeric value in the field by removing the prefix if one is given.
+	if(this.prefixValue) {
 		var currentValue = fieldString.slice(this.prefixValue.length,fieldString.length);
 	} else {
 		var currentValue = fieldString;
 	}
 
 	//If either the existing value or the increment value are not numbers leave the field alone, otherwise increment the value.
-	if ( !isNaN(parseFloat(currentValue)) && isFinite(currentValue) && !isNaN(parseFloat(incVal)) && isFinite(incVal) ) { 
+	if(!isNaN(parseFloat(currentValue)) && isFinite(currentValue) && !isNaN(parseFloat(incVal)) && isFinite(incVal)) { 
 		var output = Number(currentValue) + Number(incVal);
-		if ( this.padLength ) {
+		if(this.padLength) {
 			this.actionValue = $tw.utils.pad(output,this.padLength)
 		} else {
 			this.actionValue = output;
 		} 
-		if ( this.prefixValue ) {
+		if(this.prefixValue) {
 			this.actionValue = String(this.prefixValue)+String(this.actionValue);
 		}
 	} else {
