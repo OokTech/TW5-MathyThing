@@ -1,0 +1,7 @@
+caption: ~MathyThing Settings
+tags: $:/tags/ControlPanel
+title: $:/plugins/inmysocks/MathyThing/MathyThing Settings
+type: text/vnd.tiddlywiki
+
+Any tiddler with this tag will be checked for the appropriate fields, and if they are present than the summation defined by the tiddler will be calculated.<br>
+Summation Tag: <$edit-text tiddler='$:/plugins/inmysocks/MathyThing/MathyThingSettingsTiddler' field='sum_tag'/><br>

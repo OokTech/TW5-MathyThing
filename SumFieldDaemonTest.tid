@@ -1,0 +1,12 @@
+tags: sumthing
+title: $:/plugins/inmysocks/MathyThing/SumfieldDaemonTest
+type: text/vnd.tiddlywiki
+sum_default_value: 0
+sum_field: text
+sum_tag: sum
+sum_store_tiddler: $:/plugins/inmysocks/MathyThing/SumfieldDaemonTest
+sum_store_field: store_field
+
+Make some tiddlers with the tag 'sum' and numbers in the text field, this should show the sum of those numbers
+
+Total: {{!!store_field}}

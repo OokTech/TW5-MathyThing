@@ -1,0 +1,6 @@
+sum_field: text
+sum_tag: sumthing
+sum_store_field: store_field
+sum_store_tiddler: $:/plugins/inmysocks/MathyThing/SumfieldDaemonTest
+title: $:/plugins/inmysocks/MathyThing/MathyThingSettingsTiddler
+type: text/vnd.tiddlywiki
