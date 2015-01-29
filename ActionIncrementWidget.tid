@@ -1,0 +1,43 @@
+caption: action-increment
+inc_field1: 0
+inc_field2: pre-00000
+tags: Widgets ActionWidgets
+title: ActionIncrementWidget
+type: text/vnd.tiddlywiki
+
+! Introduction
+
+The ''action-increment'' widget is an [[action widget|ActionWidgets]] that increments a value in a specified field of a tiddler. ActionWidgets are used within triggering widgets such as the ButtonWidget.
+
+! Content and Attributes
+
+The ''action-increment'' widget is invisible. Any content within it is ignored.
+
+|!Attribute |!Description |
+|$tiddler |The title of the tiddler with the field to be incremented (if not provided defaults to the [[WidgetVariable: currentTiddler]] |
+|$field |Name of a field to increment (if not provided defaults to `inc_field`) |
+|$increment |The increment amount, this can be negative (if not provided defaults to 1) |
+|$length |(optional) The minimum length of the numeric output, if the output would be shorter than this value zero padding is used. |
+|$prefix |(optional) The prefix to append to the output. |
+|$initial |(optional) The inital value assumed if the field doesn't exist (if none is given 0 is assumed) |
+
+! Examples
+
+Here is an example of a button that increments the field `inc_field1` by 1 each time it is pressed.
+
+<$macrocall $name='wikitext-example-without-html'
+src='<$button>
+<$action-increment $field=inc_field1/>
+Increment
+</$button>
+Current Value: {{!!inc_field1}}'/>
+
+Here is an example of a button that increments a value that uses a prefix and minimum length
+
+<$macrocall $name='wikitext-example-without-html'
+src='<$button>
+<$action-increment $field=inc_field2 $length=5 $prefix="pre-"/>
+Increment
+</$button>
+Current Value: {{!!inc_field2}}'/>
+
