@@ -36,7 +36,7 @@ exports.startup = function() {
 			var configurationTiddler1 = $tw.wiki.getTiddler(CONFIGURATION_TIDDLER);
 			var summationTag1 = configurationTiddler1.getFieldString("sum_tag"); // any tiddler with this tag will be an expression tiddler
 			//Build filter to make list of expression tiddlers
-			var summationTiddlersFilter1 = "[tag["+summationTag1+"]]";
+			var summationTiddlersFilter1 = "[tag["+summationTag1+"]!has[draft.of]]"; //somehow you get an infinite loop or something when you don't have the !has[draft.of] part, have more than one expression tiddler and try to edit one of the expression tiddlers
 			//Evaluate the filter to get the list of expression tiddlers
 			var expressionTiddlerList1 = $tw.wiki.filterTiddlers(summationTiddlersFilter1);
 			//Iterate through the list of expression tidders and evaluate each one.
@@ -45,8 +45,7 @@ exports.startup = function() {
 					var expressionTiddler1 = $tw.wiki.getTiddler(expressionTiddlerList1[i]);
 					if(expressionTiddler1) {
 						if($tw.utils.hop(changes,expressionTiddlerList1[i])) {
-//							sumField(expressionTiddler1);
-							sumFieldFull();
+							sumField(expressionTiddler1);
 						} else {
 							var inputFilter1 = expressionTiddler1.getFieldString("sum_filter","[is[system]!is[system]]");
 							var tiddlerList1 = $tw.wiki.filterTiddlers(inputFilter1);
@@ -54,8 +53,7 @@ exports.startup = function() {
 								for (var i = 0; i < tiddlerList1.length; i++) {
 									var tidtitle1 = tiddlerList1[i];
 									if($tw.utils.hop(changes,tidtitle1)) {
-//										sumField(expressionTiddler1);
-										sumFieldFull();
+										sumField(expressionTiddler1);
 									}
 								}
 							}
@@ -67,7 +65,7 @@ exports.startup = function() {
 	});
 };
 
-/*
+
 function sumField(expressionTiddler) {
 	//Get parameters for current tiddler
 	var storeTiddler = expressionTiddler.getFieldString("sum_store_tiddler");
@@ -92,13 +90,16 @@ function sumField(expressionTiddler) {
 			}
 	 	}
 	}
-    //If the output isn't blank then write to the field
-	output = String(output);
-	if(output != '') {
-  		$tw.wiki.setText(storeTiddler,storeField,storeIndex,output);
+	var checkTiddler = $tw.wiki.getTiddler(storeTiddler);
+	if(checkTiddler && storeField) {
+	    //If the output different than the current value, write the new value
+		output = String(output);
+		if(output != checkTiddler.getFieldString(storeField)) {
+	  		$tw.wiki.setText(storeTiddler,storeField,storeIndex,output);
+	  	}
   	}
 };
-*/
+
 
 function sumFieldFull() {
 	//Get the summation tag from the configuration tiddler
