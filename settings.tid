@@ -10,9 +10,15 @@ Uncheck Evaluate Expression while you edit this to prevent unwanted behavior dur
 If the store tiddler doesn't exist this will not create it unless `Create Store Tiddler` is checked.
 
 Any tiddler with this tag will be checked for the appropriate fields, and if they are present than the summation defined by the tiddler will be calculated.<br>
-Summation Tag: <$edit-text tiddler='$:/plugins/inmysocks/MathyThing/MathyThingSettingsTiddler' field='sum_tag'/><br>
+Sum Tag: <$edit-text tiddler='$:/plugins/inmysocks/MathyThing/MathyThingSettingsTiddler' field='sum_tag'/><br>
+
+Any tiddler with this tag will be checked for the appropriate fields, and if they are present than the summation defined by the tiddler will be calculated.<br>
+Sum2 Tag: <$edit-text tiddler='$:/plugins/inmysocks/MathyThing/MathyThingSettingsTiddler' field='sum2_tag'/><br>
 
 Any tiddler with this tag will be checked for the appropriate fields, and if they are present than the product defined by the tiddler will be calculated.<br>
 Product Tag: <$edit-text tiddler='$:/plugins/inmysocks/MathyThing/MathyThingSettingsTiddler' field='prod_tag'/><br>
 
-<<tabs "[[$:/plugins/inmysocks/MathyThing/Sum Tiddlers List]][[$:/plugins/inmysocks/MathyThing/Product Tiddlers List]]">>
+Any tiddler with this tag will be checked for the appropriate fields, and if they are present than the product defined by the tiddler will be calculated.<br>
+Product2 Tag: <$edit-text tiddler='$:/plugins/inmysocks/MathyThing/MathyThingSettingsTiddler' field='prod2_tag'/><br>
+
+<<tabs "[[$:/plugins/inmysocks/MathyThing/Sum Tiddlers List]][[$:/plugins/inmysocks/MathyThing/Product Tiddlers List]][[$:/plugins/inmysocks/MathyThing/Product2 Tiddlers List]][[$:/plugins/inmysocks/MathyThing/Sum2 Tiddlers List]]">>

@@ -1,4 +1,4 @@
-title: readme
+title: $:/plugins/inmysocks/MathyThing/readme
 type: text/vnd.tiddlywiki
 
 !TW5-MathyThing
@@ -108,6 +108,11 @@ If you want to create a tiddler expression without having to manually edit the i
 *evaluate - set this to `true` or the expression won't be evaluated.
 
 ---
+
+!Things below here shouldn't be used
+
+---
+
 
 ''The storecount widget'' - a widget with similar functionality to the count widget. It takes a filter and will count the number of matching tiddlers and store the output in the designated field. It was created by modifying the sumfield widget below.
 
