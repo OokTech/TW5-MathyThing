@@ -15,4 +15,4 @@ Summation Tag: <$edit-text tiddler='$:/plugins/inmysocks/MathyThing/MathyThingSe
 Any tiddler with this tag will be checked for the appropriate fields, and if they are present than the product defined by the tiddler will be calculated.<br>
 Product Tag: <$edit-text tiddler='$:/plugins/inmysocks/MathyThing/MathyThingSettingsTiddler' field='prod_tag'/><br>
 
-<<tabs "[[$:/plugins/inmysocks/MathyThing/Sum Tiddlers List]][[$:/plugins/inmysocks/MathyThing/Product Tiddlers List]]"
+<<tabs "[[$:/plugins/inmysocks/MathyThing/Sum Tiddlers List]][[$:/plugins/inmysocks/MathyThing/Product Tiddlers List]]">>
