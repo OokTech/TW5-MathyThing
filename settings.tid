@@ -3,5 +3,16 @@ tags: $:/tags/ControlPanel
 title: $:/plugins/inmysocks/MathyThing/MathyThing Settings
 type: text/vnd.tiddlywiki
 
+The results will only update while Evaluate Expression is checked.
+
+Uncheck Evaluate Expression while you edit this to prevent unwanted behavior during the edits.
+
+If the store tiddler doesn't exist this will not create it unless `Create Store Tiddler` is checked.
+
 Any tiddler with this tag will be checked for the appropriate fields, and if they are present than the summation defined by the tiddler will be calculated.<br>
 Summation Tag: <$edit-text tiddler='$:/plugins/inmysocks/MathyThing/MathyThingSettingsTiddler' field='sum_tag'/><br>
+
+Any tiddler with this tag will be checked for the appropriate fields, and if they are present than the product defined by the tiddler will be calculated.<br>
+Product Tag: <$edit-text tiddler='$:/plugins/inmysocks/MathyThing/MathyThingSettingsTiddler' field='prod_tag'/><br>
+
+<<tabs "[[$:/plugins/inmysocks/MathyThing/Sum Tiddlers List]][[$:/plugins/inmysocks/MathyThing/Product Tiddlers List]]"

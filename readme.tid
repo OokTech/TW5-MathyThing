@@ -9,12 +9,16 @@ a math plugin for TiddlyWiki5
 Currently this plugin contains:
 
 *The action-storecount widget
+*The action-increment widget
+*The sumfield daemon
+
+You shouldn't use these widgets, I am creating daemons that will do the same functions:
+
 *The storecount widget
 *The sumfield widget
 *The sumfield2 widget
 *The prodfield widget
 *The prodfield2 widget
-*The increment widget
 
 ---
 
@@ -25,6 +29,83 @@ Usage:
 `<$action-storecount $filter=<<someFilter>> $tiddler=someTiddler $field=someField/>`
 
 Since it is a modification of the action-setfield widget and I haven't modifed this part, you may be able to store the output at the given index of a data tiddler, but I haven't tested that yet.
+
+---
+
+''The action-increment widget'' - a widget that increments a value in a field by a given amount
+
+Note: Both the field and the increment value have to be numeric and exist. If you specifiy an empty field, or a field with a non-numeric value, than the widget won't do anything. The prefix string doesn't count toward as 'non-numeric' for this.
+
+Usage:
+
+`<$action-increment $tiddler=someTiddler $field=fieldToIncrement $increment=incrementValue $length=zeroPadLength $prefix=outputPrefix $intial=initialValue/>`
+
+*$tiddler defaults to `<<currentTiddler>>`
+*$field defaults to make_sure_you_give_a_field_parameter
+*$increment defaults to 1
+*$length has no default, if no length is given than the output will have no zero padding
+*$prefix has no default, if no prefix is given the output isn't given a prefix
+*$initial defaults to 0
+
+Note: the `$length` input specifies the minimum length, so if your `$length` is set to 1 and your stored value is 10 the `$length` input does nothing. The `$length` is also independent of the `$prefix`.
+
+It will take the value of someField and replace it with the value someField+someIncrement
+
+There is no requirement that either value be positive or an integer.
+
+---
+
+''The sumfield daemon'' - a background process that does the same thing that the sumfield widget does, but without the same horrible potential to break everything. It may be able to break things in horrible new ways.
+
+Usage: 
+
+In the MathyThing settings tab in the [[$:/ControlPanel]] set the summation tag. This will make any tiddlers that use the given tag expression tiddlers and give them a custom view template. They have the following inputs:
+
+*A check box marked 'Evaluate Expression' and a button labeled 'Force Re-evaluate', if the check box isn't checked than nothing will happen. You should make sure this isn't checked whenever you change the inputs on the expression tiddler to prevent unintended behavior. The 'Force Re-evaluate' button will force the output of the expression to update. Editing the output tiddler doesn't force a refresh, so if the output field gets changed somehow this button will update it without having to change inputs.
+*A check box marked 'Create Store Tiddler', if this box isn't marked and a tiddler that doesn't exist is given as the store tiddler than it isn't created. If this box is marked than the store tiddler is created if it doesn't already exist.
+*Filter - The filter given here selects a list of tiddlers to be used for the summation, it is a good idea to include `!has[draft.of]` in your filter expression.
+*Sum Field - the field in each of the tiddlers returned by the filter that holds the values to be summed
+*Store Tiddler - the name of the tiddler that will store the output
+*Store Field - the field in the store tiddler that will store the output
+*Default Value - if there isn't a valid input this value will be given as the output. It doesn't have to be numeric.
+
+If you want to create a tiddler expression without having to manually edit the inputs you can make a tiddler with the following fields:
+
+*tags - whatever tag you have set as the summation tag
+*sum_filter - the filter used
+*sum_field - the field summed
+*sum_store_tiddler - the tidder that will hold the result
+*sum_store_field - the field that will holde the result
+*sum_store_index - the index of a data tiddler to hold the result, if the sum_store_field isn't empty it takes precidence over this
+*create - if this is set to 'true' than the store tiddler will be created if it doesn't exist, otherwise no tiddler will be created.
+*evaluate - set this to `true` or the expression won't be evaluated.
+
+---
+
+''The prodfield daemon'' - a background process that does the same thing that the prodfield widget does, but without the same horrible potential to break everything. It may be able to break things in horrible new ways.
+
+Usage: 
+
+In the MathyThing settings tab in the [[$:/ControlPanel]] set the product tag. This will make any tiddlers that use the given tag expression tiddlers and give them a custom view template. They have the following inputs:
+
+*A check box marked 'Evaluate Expression' and a button labeled 'Force Re-evaluate', if the check box isn't checked than nothing will happen. You should make sure this isn't checked whenever you change the inputs on the expression tiddler to prevent unintended behavior. The 'Force Re-evaluate' button will force the output of the expression to update. Editing the output tiddler doesn't force a refresh, so if the output field gets changed somehow this button will update it without having to change inputs.
+*A check box marked 'Create Store Tiddler', if this box isn't marked and a tiddler that doesn't exist is given as the store tiddler than it isn't created. If this box is marked than the store tiddler is created if it doesn't already exist.
+*Filter - The filter given here selects a list of tiddlers to be used for the product, it is a good idea to include `!has[draft.of]` in your filter expression.
+*Product Field - the field in each of the tiddlers returned by the filter that holds the values to be summed
+*Store Tiddler - the name of the tiddler that will store the output
+*Store Field - the field in the store tiddler that will store the output
+*Default Value - if there isn't a valid input this value will be given as the output. It doesn't have to be numeric.
+
+If you want to create a tiddler expression without having to manually edit the inputs you can make a tiddler with the following fields:
+
+*tags - whatever tag you have set as the summation tag
+*prod_filter - the filter used
+*prod_field - the field that the product is taken over
+*prod_store_tiddler - the tidder that will hold the result
+*prod_store_field - the field that will holde the result
+*prod_store_index - the index of a data tiddler to hold the result, if the sum_store_field isn't empty it takes precidence over this
+*create - if this is set to 'true' than the store tiddler will be created if it doesn't exist, otherwise no tiddler will be created.
+*evaluate - set this to `true` or the expression won't be evaluated.
 
 ---
 
@@ -95,26 +176,3 @@ It will take each tiddler listed when using `<<someFilter>>` and multiply the va
 tiddler defaults to `<<currentTiddler>>` and defaultValue defaults to 0 if they aren't given inputs.
 
 If one of the fields contains a non-numeric value than it is ignored. This includes empty fields.
-
----
-
-''The increment widget'' - a widget that increments a value in a field by a given amount
-
-Note: Both the field and the increment value have to be numeric and exist. If you specifiy an empty field, or a field with a non-numeric value, than the widget won't do anything.
-
-Usage:
-
-`<$action-increment $tiddler=someTiddler $field=fieldToIncrement $increment=incrementValue $length=zeroPadLength $prefix=outputPrefix $intial=initialValue/>`
-
-*$tiddler defaults to `<<currentTiddler>>`
-*$field defaults to make_sure_you_give_a_field_parameter
-*$increment defaults to 1
-*$length has no default, if no length is given than the output will have no zero padding
-*$prefix has no default, if no prefix is given the output isn't given a prefix
-*$initial defaults to 0
-
-Note: the `$length` input specifies the minimum length, so if your `$length` is set to 1 and your stored value is 10 the `$length` input does nothing. The `$length` is also independent of the `$prefix`.
-
-It will take the value of someField and replace it with the value someField+someIncrement
-
-There is no requirement that someIncrement be positive or an integer.

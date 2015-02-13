@@ -1,5 +1,5 @@
 /*\
-title: $:/plugins/inmysocks/MathyThing/sumfield-daemon.js
+title: $:/plugins/inmysocks/MathyThing/prodfield-daemon.js
 type: application/javascript
 module-type: startup
 
@@ -13,7 +13,7 @@ Summation Daemon
 	"use strict";
 
 	// Export name and synchronous status
-	exports.name = "sumfield";
+	exports.name = "prodfield";
 	exports.platforms = ["browser"];
 	exports.after = ["startup"];
 	exports.synchronous = true;
@@ -23,36 +23,36 @@ Summation Daemon
 
 	exports.startup = function() {
 		// Set values on startup
-		sumFieldFull();
+		prodFieldFull();
 
 		// Reset the values when any of the tiddlers change
 		$tw.wiki.addEventListener("change",function(changes) {
 			//If the configuration changes do a full refresh, otherwise just refresh the changed expression
 			if($tw.utils.hop(changes, CONFIGURATION_TIDDLER)) {
-				sumFieldFull();
+				prodFieldFull();
 			} else {
-				//Get the summation tag from the configuration tiddler
-				var configurationTiddler1 = $tw.wiki.getTiddler(CONFIGURATION_TIDDLER);
-				var summationTag1 = configurationTiddler1.getFieldString("sum_tag"); // any tiddler with this tag will be an expression tiddler
+				//Get the produrn tag from the configuration tiddler
+				var configurationTiddler = $tw.wiki.getTiddler(CONFIGURATION_TIDDLER);
+				var prodTag = configurationTiddler.getFieldString("prod_tag"); // any tiddler with this tag will be an expression tiddler
 				//Build filter to make list of expression tiddlers
-				var summationTiddlersFilter1 = "[tag[" + summationTag1 + "]evaluate[true]!has[draft.of]]"; //somehow you get an infinite loop or something when you don't have the !has[draft.of] part, have more than one expression tiddler and try to edit one of the expression tiddlers
+				var prodTiddlersFilter = "[tag[" + prodTag + "]evaluate[true]!has[draft.of]]"; //somehow you get an infinite loop or something when you don't have the !has[draft.of] part, have more than one expression tiddler and try to edit one of the expression tiddlers
 				//Evaluate the filter to get the list of expression tiddlers
-				var expressionTiddlerList1 = $tw.wiki.filterTiddlers(summationTiddlersFilter1);
+				var expressionTiddlerList = $tw.wiki.filterTiddlers(prodTiddlersFilter);
 				//Iterate through the list of expression tidders and evaluate each one.
-				if(expressionTiddlerList1.length !== 0) {
-					for (var i = 0; i < expressionTiddlerList1.length; i++) {
-						var expressionTiddler1 = $tw.wiki.getTiddler(expressionTiddlerList1[i]);
-						if(expressionTiddler1) {
-							if($tw.utils.hop(changes,expressionTiddlerList1[i])) {
-								sumField(expressionTiddler1);
+				if(expressionTiddlerList.length !== 0) {
+					for (var i = 0; i < expressionTiddlerList.length; i++) {
+						var expressionTiddler = $tw.wiki.getTiddler(expressionTiddlerList[i]);
+						if(expressionTiddler) {
+							if($tw.utils.hop(changes,expressionTiddlerList[i])) {
+								prodField(expressionTiddler);
 							} else {
-								var inputFilter1 = expressionTiddler1.getFieldString("sum_filter","[is[system]!is[system]]");
-								var tiddlerList1 = $tw.wiki.filterTiddlers(inputFilter1);
-								if(tiddlerList1.length !== 0) {
-									for (var j = 0; j < tiddlerList1.length; j++) {
-										var tidtitle1 = tiddlerList1[j];
-										if($tw.utils.hop(changes,tidtitle1)) {
-											sumField(expressionTiddler1);
+								var inputFilter = expressionTiddler.getFieldString("prod_filter","[is[system]!is[system]]");
+								var tiddlerList = $tw.wiki.filterTiddlers(inputFilter);
+								if(tiddlerList.length !== 0) {
+									for (var j = 0; j < tiddlerList.length; j++) {
+										var tidtitle = tiddlerList[j];
+										if($tw.utils.hop(changes,tidtitle)) {
+											prodField(expressionTiddler);
 										}
 									}
 								}
@@ -65,29 +65,29 @@ Summation Daemon
 	};
 
 
-	function sumField(expressionTiddler) {
+	function prodField(expressionTiddler) {
 		//Get parameters for current tiddler
-		var storeTiddler = expressionTiddler.getFieldString("sum_store_tiddler");
-		var storeField = expressionTiddler.getFieldString("sum_store_field");
-		var storeIndex = expressionTiddler.getFieldString("sum_store_index");
-		var thisSumField = expressionTiddler.getFieldString("sum_field");
-		var inputFilter = expressionTiddler.getFieldString("sum_filter","[is[system]!is[system]]");
-		var defaultValue = expressionTiddler.getFieldString("sum_default_value",0);
+		var storeTiddler = expressionTiddler.getFieldString("prod_store_tiddler");
+		var storeField = expressionTiddler.getFieldString("prod_store_field");
+		var storeIndex = expressionTiddler.getFieldString("prod_store_index");
+		var thisSumField = expressionTiddler.getFieldString("prod_field");
+		var inputFilter = expressionTiddler.getFieldString("prod_filter","[is[system]!is[system]]");
+		var defaultValue = expressionTiddler.getFieldString("prod_default_value",0);
 		var createTiddler = expressionTiddler.getFieldString("create",0);
 		var tiddlerList = $tw.wiki.filterTiddlers(inputFilter);
     	var output;
-		// Check for an empty list, if the list isn't empty compute the sum
+		// Check for an empty list, if the list isn't empty compute the prod
 		if(tiddlerList.length === 0) {
-		  	output = defaultValue; //return the default value when there is nothing to sum
+		  	output = defaultValue; //return the default value when there is nothing to prod
 		  	writeOutput(storeTiddler, storeField, storeIndex, output, createTiddler);
 		} else {
-		  	output = 0;
+		  	output = 1;
 		  	for (var i = 0; i < tiddlerList.length; i++) {
 			    var tidtitle = tiddlerList[i];
 			    var tiddler = $tw.wiki.getTiddler(tidtitle);
 			    if(tiddler !== undefined) {
 				    if(!isNaN(parseFloat(tiddler.getFieldString(thisSumField))) && isFinite(tiddler.getFieldString(thisSumField))) {
-			    		output = output + Number(tiddler.getFieldString(thisSumField));
+			    		output = output * Number(tiddler.getFieldString(thisSumField));
 			    		writeOutput(storeTiddler, storeField, storeIndex, output, createTiddler);
 					}
 				}
@@ -96,20 +96,20 @@ Summation Daemon
 	}
 
 
-	function sumFieldFull() {
-		//Get the summation tag from the configuration tiddler
+	function prodFieldFull() {
+		//Get the product tag from the configuration tiddler
 		var configurationTiddler = $tw.wiki.getTiddler(CONFIGURATION_TIDDLER);
-		var summationTag = configurationTiddler.getFieldString("sum_tag"); // any tiddler with this tag will be an expression tiddler
+		var prodTag = configurationTiddler.getFieldString("prod_tag"); // any tiddler with this tag will be an expression tiddler
 		//Build filter to make list of expression tiddlers
-		var summationTiddlersFilter = "[tag["+summationTag+"]]";
+		var prodTiddlersFilter = "[tag["+prodTag+"]]";
 		//Evaluate the filter to get the list of expression tiddlers
-		var expressionTiddlerList = $tw.wiki.filterTiddlers(summationTiddlersFilter);
+		var expressionTiddlerList = $tw.wiki.filterTiddlers(prodTiddlersFilter);
 		//Iterate through the list of expression tidders and evaluate each one.
 		if(expressionTiddlerList.length !== 0) {
 			for (var i = 0; i < expressionTiddlerList.length; i++) {
 				var expressionTiddler = $tw.wiki.getTiddler(expressionTiddlerList[i]);
 				if(expressionTiddler) {
-					sumField(expressionTiddler);
+					prodField(expressionTiddler);
 				}
 			}
 		}

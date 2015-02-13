@@ -5,8 +5,10 @@ type: text/vnd.tiddlywiki
 <$set name=sumTag value={{$:/plugins/inmysocks/MathyThing/MathyThingSettingsTiddler!!sum_tag}}>
 <$list filter='[is[current]tag<sumTag>]'>
 
-|Summation Settings|<|Result |
-|Filter |<$edit-text field='sum_filter'/>|<$list filter='[{!!sum_store_tiddler}get{!!sum_store_field}]'/>|
+|!Summation Settings|<|!Result |
+|Evaluate Expression |<$checkbox tiddler=<<currentTiddler>> field='evaluate' checked='true' unchecked='false'/> <$button>Force Re-evaluate<$action-setfield $tiddler=<<currentTiddler>> $field='evaluate' $value='true'/></$button>| <$list filter='[{!!sum_store_tiddler}get{!!sum_store_field}]'/> |
+|Create Store Tiddler |<$checkbox tiddler=<<currentTiddler>> field='create' checked='true' unchecked='false'/> |~|
+|Filter |<$edit-text field='sum_filter'/>|~|
 |Sum Field |<$edit-text field='sum_field'/>|~|
 |Store Tiddler |<$edit-text field='sum_store_tiddler'/>|~|
 |Store Field |<$edit-text field='sum_store_field'/>|~|

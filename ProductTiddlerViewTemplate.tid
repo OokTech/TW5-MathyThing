@@ -1,0 +1,17 @@
+tags: $:/tags/ViewTemplate
+title: $:/plugins/inmysocks/MathyThing/ProductTiddlerViewTemplate
+type: text/vnd.tiddlywiki
+
+<$set name=prodTag value={{$:/plugins/inmysocks/MathyThing/MathyThingSettingsTiddler!!prod_tag}}>
+<$list filter='[is[current]tag<prodTag>]'>
+
+|!Product Settings|<|!Result |
+|Evaluate Expression |<$checkbox tiddler=<<currentTiddler>> field='evaluate' checked='true' unchecked='false'/> <$button>Force Re-evaluate<$action-setfield $tiddler=<<currentTiddler>> $field='evaluate' $value='true'/></$button>| <$list filter='[{!!prod_store_tiddler}get{!!prod_store_field}]'/> |
+|Create Store Tiddler |<$checkbox tiddler=<<currentTiddler>> field='create' checked='true' unchecked='false'/> |~|
+|Filter |<$edit-text field='prod_filter'/>|~|
+|Prod Field |<$edit-text field='prod_field'/>|~|
+|Store Tiddler |<$edit-text field='prod_store_tiddler'/>|~|
+|Store Field |<$edit-text field='prod_store_field'/>|~|
+|Default Value |<$edit-text field='prod_default_value'/>|~|
+</$list>
+</$set>
