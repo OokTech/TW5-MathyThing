@@ -1,5 +1,5 @@
 /*\
-title: $:/plugins/inymsocks/MathyThing/sumfield.js
+title: $:/plugins/inymsocks/MathyThing/action-sumfield.js
 type: application/javascript
 module-type: widget
 
@@ -41,16 +41,16 @@ Compute the internal state of the widget
 */
 ActionSumFieldWidget.prototype.execute = function() {
 	// Get attributes
-	this.actionTiddler = this.getAttribute("tiddler",this.getVariable("currentTiddler"));
-	this.sumField = this.getAttribute("sumfield");
-	this.storeField = this.getAttribute("storefield","store_field");
-	this.storeIndex = this.getAttribute("index");
-	this.defaultValue = this.getAttribute("defaultvalue",0);
+	this.actionTiddler = this.getAttribute("$tiddler",this.getVariable("currentTiddler"));
+	this.sumField = this.getAttribute("$sumfield");
+	this.storeField = this.getAttribute("$storefield","store_field");
+	this.storeIndex = this.getAttribute("$index");
+	this.defaultValue = this.getAttribute("$defaultvalue",0);
 	// Compose the list elements
 	this.list = this.getTiddlerList();
 	// Get current value
-	var storetiddler = this.wiki.getTiddler(this.actionTiddler);
-	var currentState = storetiddler.getFieldString(this.storeField);
+	this.storetiddler = this.wiki.getTiddler(this.actionTiddler);
+	var currentState = this.storetiddler.getFieldString(this.storeField);
 	// Check for an empty list, if the list isn't empty compute the sum
 	if(this.list.length === 0) {
 	  output = this.defaultValue; //return the default value when there is nothing to sum, if it isn't set than return 0
@@ -82,9 +82,9 @@ ActionSumFieldWidget.prototype.refresh = function(changedTiddlers) {
 	  	output = output + Number(tiddler.getFieldString(this.sumField));
 	  }
 	}
-	var storetiddler = this.wiki.getTiddler(this.actionTiddler);
+	this.storetiddler = this.wiki.getTiddler(this.actionTiddler);
 	// Completely rerender if any of our attributes have changed
-	if (String(output) != String(storetiddler.getFieldString(this.storeField))) {
+	if (String(output) != String(this.storetiddler.getFieldString(this.storeField))) {
 		this.refreshSelf();
 		return true;
 	} else if(this.stateTitle && changedTiddlers[this.stateTitle]) {
@@ -96,20 +96,20 @@ ActionSumFieldWidget.prototype.refresh = function(changedTiddlers) {
 
 ActionSumFieldWidget.prototype.getTiddlerList = function() {
 	var defaultFilter = "[!is[system]is[system]]"; // this will always return an empty list and is always valid, so default behavior is to return an empty list
-	return this.wiki.filterTiddlers(this.getAttribute("filter",defaultFilter),this);
+	return this.wiki.filterTiddlers(this.getAttribute("$filter",defaultFilter),this);
 };
 
 /*
 Invoke the action associated with this widget
 */
 ActionSumFieldWidget.prototype.invokeAction = function(triggeringWidget,event) {
-	if (this.output === String(storetiddler.getFieldString(this.storeField))) {
+	if (this.output === String(this.storetiddler.getFieldString(this.storeField))) {
 	} else {
 	  this.wiki.setText(this.actionTiddler,this.storeField,this.storeIndex,this.output);
 	}
 	return true; // Action was invoked
 };
 
-exports.["action-sumfield"] = ActionSumFieldWidget;
+exports["action-sumfield"] = ActionSumFieldWidget;
 
 })();

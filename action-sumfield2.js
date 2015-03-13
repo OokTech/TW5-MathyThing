@@ -1,5 +1,5 @@
 /*\
-title: $:/plugins/inymsocks/MathyThing/sumfield2.js
+title: $:/plugins/inymsocks/MathyThing/action-sumfield2.js
 type: application/javascript
 module-type: widget
 
@@ -41,12 +41,12 @@ Compute the internal state of the widget
 */
 ActionSumFieldWidget2.prototype.execute = function() {
 	// Get attributes
-	this.actionTiddler = this.getAttribute("tiddler",0);
-	this.sumField = this.getAttribute("sumfield");
-	this.sumField2 = this.getAttribute("sumfield2");
-	this.storeField = this.getAttribute("storefield","store_field");
-	this.storeIndex = this.getAttribute("index");
-	this.defaultValue = this.getAttribute("defaultvalue",0);
+	this.actionTiddler = this.getAttribute("$tiddler",0);
+	this.sumField = this.getAttribute("$sumfield");
+	this.sumField2 = this.getAttribute("$sumfield2");
+	this.storeField = this.getAttribute("$storefield","store_field");
+	this.storeIndex = this.getAttribute("$index");
+	this.defaultValue = this.getAttribute("$defaultvalue",0);
 	// Compose the list elements
 	this.list = this.getTiddlerList();
 };
@@ -89,7 +89,7 @@ ActionSumFieldWidget2.prototype.refresh = function(changedTiddlers) {
 
 ActionSumFieldWidget2.prototype.getTiddlerList = function() {
 	var defaultFilter = "[!is[system]is[system]]"; // this will always return an empty list and is always valid, so default behavior is to return an empty list
-	return this.wiki.filterTiddlers(this.getAttribute("filter",defaultFilter),this);
+	return this.wiki.filterTiddlers(this.getAttribute("$filter",defaultFilter),this);
 };
 
 /*
@@ -127,6 +127,6 @@ ActionSumFieldWidget2.prototype.invokeAction = function(triggeringWidget,event) 
 	return true; // Action was invoked
 };
 
-exports.["action-sumfield2"] = ActionSumFieldWidget2;
+exports["action-sumfield2"] = ActionSumFieldWidget2;
 
 })();
