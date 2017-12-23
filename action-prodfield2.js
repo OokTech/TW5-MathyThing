@@ -111,7 +111,7 @@ ActionProdFieldWidget2.prototype.invokeAction = function(triggeringWidget,event)
 			}
 			 // If the product has changed then write to the field
        if (this.decimals) {
-         this.output = this.output.toFixed(this.decimals);
+         output = output.toFixed(this.decimals);
        }
 			this.output = String(output);
 			if ( this.actionTiddler === 0 ) {

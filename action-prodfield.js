@@ -70,7 +70,10 @@ ActionProdFieldWidget.prototype.execute = function() {
 			}
 		}
 	}
-        // If the product has changed then write to the field
+  if (this.decimals) {
+    output = output.toFixed(this.decimals);
+  }
+  // If the product has changed then write to the field
 	this.output = String(output);
 };
 
@@ -112,9 +115,6 @@ Invoke the action associated with this widget
 */
 ActionProdFieldWidget.prototype.invokeAction = function(triggeringWidget,event) {
 	if (this.storetiddler) {
-    if (this.decimals) {
-      this.output = this.output.toFixed(this.decimals);
-    }
 		if (this.output === String(this.storetiddler.getFieldString(this.storeField))) {
 		} else {
 			this.wiki.setText(this.actionTiddler,this.storeField,this.storeIndex,this.output);
