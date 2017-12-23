@@ -47,6 +47,7 @@ ActionSumFieldWidget2.prototype.execute = function() {
 	this.storeField = this.getAttribute("$storefield","store_field");
 	this.storeIndex = this.getAttribute("$index");
 	this.defaultValue = this.getAttribute("$defaultvalue",0);
+  this.decimals = this.getAttribute("$decimals");
 	// Compose the list elements
 	this.list = this.getTiddlerList();
 };
@@ -109,12 +110,15 @@ ActionSumFieldWidget2.prototype.invokeAction = function(triggeringWidget,event) 
 				output = Number(tiddler.getFieldString(this.sumField)) + Number(tiddler.getFieldString(this.sumField2));
 			}
 			 // If the sum has changed then write to the field
+       if (this.decimals) {
+         this.output = this.output.toFixed(this.decimals);
+       }
 			this.output = String(output);
 			if ( this.actionTiddler === 0 ) {
 				if (this.output === String(tiddler.getFieldString(this.storeField))) {
 				} else {
 						this.wiki.setText(tidtitle,this.storeField,this.storeIndex,this.output);
-				} 
+				}
 			} else {
 				var tiddler2 = this.wiki.getTiddler(this.actionTiddler);
 				if (this.output === String(tiddler2.getFieldString(this.storeField))) {

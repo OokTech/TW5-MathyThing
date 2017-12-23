@@ -46,11 +46,16 @@ ActionProdFieldWidget.prototype.execute = function() {
 	this.storeField = this.getAttribute("$storefield","store_field");
 	this.storeIndex = this.getAttribute("$index");
 	this.defaultValue = this.getAttribute("$defaultvalue",0);
+  this.decimals = this.getAttribute("$decimals");
 	// Compose the list elements
 	this.list = this.getTiddlerList();
 	// Get current value
 	this.storetiddler = this.wiki.getTiddler(this.actionTiddler);
-	var currentState = this.storetiddler.getFieldString(this.storeField);
+	if (this.storetiddler) {
+		var currentState = this.storetiddler.getFieldString(this.storeField);
+	} else {
+		var currentState = 0;
+	}
 	// Check for an empty list, if the list isn't empty compute the product
 	if(this.list.length === 0) {
 		output = this.defaultValue; //return the default value when there is nothing to product, if it isn't set than return 0
@@ -85,12 +90,14 @@ ActionProdFieldWidget.prototype.refresh = function(changedTiddlers) {
 	}
 	this.storetiddler = this.wiki.getTiddler(this.actionTiddler);
 	// Completely rerender if any of our attributes have changed
-	if (String(output) != String(this.storetiddler.getFieldString(this.storeField))) {
-		this.refreshSelf();
-		return true;
-	} else if(this.stateTitle && changedTiddlers[this.stateTitle]) {
-		this.readState();
-		return true;
+	if (this.storetiddler) {
+		if (String(output) != String(this.storetiddler.getFieldString(this.storeField))) {
+			this.refreshSelf();
+			return true;
+		} else if(this.stateTitle && changedTiddlers[this.stateTitle]) {
+			this.readState();
+			return true;
+		}
 	}
 	return false;
 };
@@ -104,7 +111,14 @@ ActionProdFieldWidget.prototype.getTiddlerList = function() {
 Invoke the action associated with this widget
 */
 ActionProdFieldWidget.prototype.invokeAction = function(triggeringWidget,event) {
-	if (this.output === String(this.storetiddler.getFieldString(this.storeField))) {
+	if (this.storetiddler) {
+    if (this.decimals) {
+      this.output = this.output.toFixed(this.decimals);
+    }
+		if (this.output === String(this.storetiddler.getFieldString(this.storeField))) {
+		} else {
+			this.wiki.setText(this.actionTiddler,this.storeField,this.storeIndex,this.output);
+		}
 	} else {
 		this.wiki.setText(this.actionTiddler,this.storeField,this.storeIndex,this.output);
 	}
