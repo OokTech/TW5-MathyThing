@@ -1,5 +1,5 @@
 /*\
-title: $:/plugins/inmysocks/MathyThing/action-storecount.js
+title: $:/plugins/OokTech/MathyThing/action-storecount.js
 type: application/javascript
 module-type: widget
 

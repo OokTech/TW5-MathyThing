@@ -1,9 +1,10 @@
 {
-	"title": "$:/plugins/inmysocks/MathyThing",
-	"description": "Some basic math operations for TiddlyWiki",
-	"author": "inmysocks",
-	"version": "0.2.3",
-	"core-version": ">=5.0.8",
-	"source": "https://github.com/inmysocks/TW5-MathyThing",
-	"plugin-type": "plugin"
+  "title": "$:/plugins/OokTech/MathyThing",
+  "description": "Some basic math operations for TiddlyWiki",
+  "author": "inmysocks",
+  "version": "0.3.0",
+  "core-version": ">=5.0.8",
+  "source": "https://github.com/inmysocks/TW5-MathyThing",
+  "plugin-type": "plugin",
+  "list": "readme"
 }

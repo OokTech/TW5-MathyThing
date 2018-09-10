@@ -1,5 +1,5 @@
 /*\
-title: $:/plugins/inmysocks/MathyThing/action-increment.js
+title: $:/plugins/OokTech/MathyThing/action-increment.js
 type: application/javascript
 module-type: widget
 

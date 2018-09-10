@@ -1,5 +1,5 @@
 /*\
-title: $:/plugins/inymsocks/MathyThing/action-prodfield.js
+title: $:/plugins/OokTech/MathyThing/action-prodfield.js
 type: application/javascript
 module-type: widget
 

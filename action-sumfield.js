@@ -1,5 +1,5 @@
 /*\
-title: $:/plugins/inymsocks/MathyThing/action-sumfield.js
+title: $:/plugins/OokTech/MathyThing/action-sumfield.js
 type: application/javascript
 module-type: widget
 
